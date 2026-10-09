@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad Regional del Norte | URN - Formando Líderes del Futuro</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        urn: {
+                            guinda: '#800020',
+                            guindaDark: '#5c0017',
+                            guindaLight: '#a31536',
+                            navy: '#0f172a',
+                            navyLight: '#1e293b',
+                            gold: '#d97706',
+                            goldLight: '#f59e0b',
+                            grayBg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom animations & fine details */
+        .spa-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(10px);
+        }
+
+        .spa-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 50%;
+            background-color: #d97706;
+            transition: all 0.25s ease-in-out;
+            transform: translateX(-50%);
+            border-radius: 9999px;
+        }
+
+        .nav-link.active-link {
+            color: #d97706 !important;
+            font-weight: 700;
+        }
+
+        .nav-link.active-link::after {
+            width: 100%;
+        }
+
+        /* Glassmorphism details */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(128,0,32,0.92) 0%, rgba(15,23,42,0.92) 100%), 
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #800020;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5c0017;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen selection:bg-urn-gold selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-urn-guinda text-white text-xs sm:text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5 font-medium"><i class="fa-solid fa-graduation-cap text-urn-gold"></i> Proceso de Admisiones Abierto 2026</span>
+                <span class="hidden md:inline text-slate-300">|</span>
+                <span class="hidden md:inline text-slate-200"><i class="fa-solid fa-phone mr-1"></i> 800-URN-EDUC</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+                <a href="https://facebook.com" target="_blank" class="hover:text-urn-gold transition"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://instagram.com" target="_blank" class="hover:text-urn-gold transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-urn-gold transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://youtube.com" target="_blank" class="hover:text-urn-gold transition"><i class="fa-brands fa-youtube"></i></a>
+                <a href="tel:8008763382" class="bg-urn-gold text-slate-900 px-2.5 py-0.5 rounded font-bold hover:bg-yellow-400 transition ml-2">Portal Alumnos</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-50 glass-nav border-b border-slate-800 text-white shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- BRAND LOGO -->
+                <a href="#inicio" onclick="navigateToSection('inicio')" class="flex items-center gap-3 group focus:outline-none">
+                    <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-md group-hover:scale-105 transition transform">
+                        <!-- Custom URN Shield Emblem -->
+                        <svg viewBox="0 0 100 120" class="w-full h-full text-urn-guinda fill-current">
+                            <path d="M50 0 L95 20 V60 C95 90 50 115 50 115 C50 115 5 90 5 60 V20 Z" fill="#800020"/>
+                            <path d="M50 10 L85 26 V58 C85 83 50 103 50 103 C50 103 15 83 15 58 V26 Z" fill="#ffffff"/>
+                            <text x="50" y="55" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#800020" text-anchor="middle">URN</text>
+                            <path d="M30 72 L50 82 L70 72 L50 62 Z" fill="#d97706"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-tight text-white block leading-none">URN</span>
+                        <span class="text-[10px] font-semibold text-urn-gold uppercase tracking-wider block">Univ. Regional del Norte</span>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAVIGATION LINKS -->
+                <nav class="hidden lg:flex items-center gap-8 font-medium text-sm">
+                    <button onclick="navigateToSection('inicio')" id="nav-inicio" class="nav-link text-slate-200 hover:text-white py-1">
+                        Inicio
+                    </button>
+                    <button onclick="navigateToSection('oferta')" id="nav-oferta" class="nav-link text-slate-200 hover:text-white py-1">
+                        Oferta Académica
+                    </button>
+                    <button onclick="navigateToSection('admisiones')" id="nav-admisiones" class="nav-link text-slate-200 hover:text-white py-1">
+                        Admisiones
+                    </button>
+                    <button onclick="navigateToSection('nosotros')" id="nav-nosotros" class="nav-link text-slate-200 hover:text-white py-1">
+                        Nosotros / Planteles
+                    </button>
+                    <button onclick="navigateToSection('contacto')" id="nav-contacto" class="nav-link text-slate-200 hover:text-white py-1">
+                        Contacto
+                    </button>
+                </nav>
+
+                <!-- HEADER ACTION BUTTON -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <button onclick="navigateToSection('admisiones'); openPreRegisterModal();" class="bg-gradient-to-r from-urn-gold to-yellow-600 hover:from-yellow-500 hover:to-urn-gold text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg hover:shadow-yellow-500/20 transition transform hover:-translate-y-0.5 active:translate-y-0 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Preinscríbete
+                    </button>
+                </div>
+
+                <!-- MOBILE HAMBURGER BUTTON -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none" aria-label="Abrir Menú">
+                        <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU DROPDOWN -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-urn-navy px-4 pt-3 pb-6 space-y-2">
+            <button onclick="navigateToSection('inicio')" class="mobile-nav-btn block w-full text-left px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800 font-medium transition">
+                <i class="fa-solid fa-house w-6 text-urn-gold"></i> Inicio
+            </button>
+            <button onclick="navigateToSection('oferta')" class="mobile-nav-btn block w-full text-left px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800 font-medium transition">
+                <i class="fa-solid fa-book-open w-6 text-urn-gold"></i> Oferta Académica
+            </button>
+            <button onclick="navigateToSection('admisiones')" class="mobile-nav-btn block w-full text-left px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800 font-medium transition">
+                <i class="fa-solid fa-user-plus w-6 text-urn-gold"></i> Admisiones & Becas
+            </button>
+            <button onclick="navigateToSection('nosotros')" class="mobile-nav-btn block w-full text-left px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800 font-medium transition">
+                <i class="fa-solid fa-building-columns w-6 text-urn-gold"></i> Nosotros & Planteles
+            </button>
+            <button onclick="navigateToSection('contacto')" class="mobile-nav-btn block w-full text-left px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800 font-medium transition">
+                <i class="fa-solid fa-envelope w-6 text-urn-gold"></i> Contacto
+            </button>
+            <div class="pt-2">
+                <button onclick="navigateToSection('admisiones'); toggleMobileMenu(); openPreRegisterModal();" class="w-full bg-urn-gold hover:bg-yellow-500 text-slate-950 font-bold py-3 rounded-xl text-center shadow-md">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i> Preinscríbete Ahora
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER (SPA SECTIONS) -->
+    <main class="flex-grow">
+
+        <!-- ================= SECCIÓN 1: INICIO ================= -->
+        <section id="sec-inicio" class="spa-section active">
+            
+            <!-- HERO BANNER -->
+            <div class="relative hero-gradient text-white py-24 lg:py-36 px-4 overflow-hidden">
+                <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-xs sm:text-sm text-urn-gold font-semibold">
+                            <i class="fa-solid fa-star"></i> Excelencia Académica en el Norte de México
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            Lidera tu futuro con educación de <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">Clase Mundial</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-200 font-light max-w-2xl mx-auto lg:mx-0">
+                            En la Universidad Regional del Norte formamos profesionales visionarios, éticos y altamente competitivos a través de programas innovadores y campus equipados para el éxito.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                            <button onclick="navigateToSection('oferta')" class="bg-urn-guinda hover:bg-urn-guindaLight text-white font-bold px-8 py-4 rounded-xl shadow-xl hover:shadow-rose-900/40 transition transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                                <span>Explorar Carreras</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="navigateToSection('admisiones')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl border border-white/30 backdrop-blur-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-calculator text-urn-gold"></i>
+                                Calculadora de Becas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HERO STAT CARD / FORM HIGHLIGHT -->
+                    <div class="lg:col-span-5 bg-white text-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-100">
+                        <div class="text-center mb-6">
+                            <span class="bg-rose-100 text-urn-guinda font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Admisiones 2026</span>
+                            <h3 class="text-2xl font-bold mt-2 text-slate-900">Solicita Información</h3>
+                            <p class="text-slate-500 text-sm">Recibe plan de estudios, costos y opciones de beca</p>
+                        </div>
+
+                        <form id="hero-quick-form" onsubmit="handleQuickFormSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nombre Completo</label>
+                                <input type="text" required placeholder="Ej. Ana María García" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Correo Electrónico</label>
+                                <input type="email" required placeholder="tuemail@ejemplo.com" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nivel de Interés</label>
+                                <select required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm transition text-slate-700">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="licenciatura">Licenciaturas e Ingenierías</option>
+                                    <option value="posgrado">Maestrías y Doctorados</option>
+                                    <option value="diplomado">Diplomados / Educación Continua</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Campus más cercano</label>
+                                <select required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm transition text-slate-700">
+                                    <option value="">Selecciona tu Campus</option>
+                                    <option value="chihuahua">Chihuahua (Campus Central)</option>
+                                    <option value="juarez">Ciudad Juárez</option>
+                                    <option value="parral">Parral</option>
+                                    <option value="delicias">Delicias</option>
+                                    <option value="cuauhtemoc">Cuauhtémoc</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-urn-guinda hover:bg-urn-guindaDark text-white font-bold py-3.5 rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <span>Enviar Solicitud</span>
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- METRICAS DESTACADAS -->
+            <div class="bg-urn-navy text-white py-12 border-y border-slate-800">
+                <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="space-y-2">
+                        <div class="text-4xl lg:text-5xl font-black text-urn-gold">30+</div>
+                        <div class="text-slate-300 text-sm font-medium">Años de Trayectoria</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-4xl lg:text-5xl font-black text-urn-gold">5</div>
+                        <div class="text-slate-300 text-sm font-medium">Planteles en el Estado</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-4xl lg:text-5xl font-black text-urn-gold">25+</div>
+                        <div class="text-slate-300 text-sm font-medium">Programas Académicos</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-4xl lg:text-5xl font-black text-urn-gold">15,000+</div>
+                        <div class="text-slate-300 text-sm font-medium">Egresados Exitosos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VALORES DIFERENCIALES -->
+            <div class="py-20 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-urn-guinda font-bold text-sm tracking-wider uppercase">¿Por qué elegir URN?</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Una experiencia educativa diseñada para tu éxito</h2>
+                        <p class="text-slate-600 mt-4 text-base">Combinamos rigor académico, flexibilidad de horarios y vinculación directa con el sector empresarial.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 card-hover space-y-4">
+                            <div class="w-14 h-14 bg-rose-50 text-urn-guinda rounded-xl flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Docentes con Experiencia Real</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Profesores activos en el sector profesional e industrial que comparten casos de estudio reales e innovadores en cada clase.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 card-hover space-y-4">
+                            <div class="w-14 h-14 bg-amber-50 text-urn-gold rounded-xl flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Modalidades Flexibles</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Programas presenciales, ejecutivos y en línea diseñados para ajustarse a tu estilo de vida y compromisos laborales.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 card-hover space-y-4">
+                            <div class="w-14 h-14 bg-slate-100 text-urn-navy rounded-xl flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-handshake-angle"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Bolsa de Trabajo y Prácticas</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Convenios con empresas estratégicas del norte del país para facilitar tu inserción laboral desde los últimos semestres.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTICIAS Y AVISOS RECIENTES -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                        <div>
+                            <span class="text-urn-guinda font-bold text-sm uppercase tracking-wider">Comunidad URN</span>
+                            <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Noticias y Eventos Destacados</h2>
+                        </div>
+                        <button onclick="navigateToSection('contacto')" class="mt-4 md:mt-0 text-urn-guinda font-bold hover:text-urn-guindaDark transition flex items-center gap-2">
+                            Ver todos los avisos <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <article class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+                            <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=800&auto=format&fit=crop" alt="Congreso URN" class="h-48 w-full object-cover">
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-urn-gold uppercase">Académico</span>
+                                    <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Simposio Internacional de Negocios y Liderazgo 2026</h3>
+                                    <p class="text-slate-600 text-sm line-clamp-3">Reunión anual con ponentes de la industria manufacturera y de servicios en el estado de Chihuahua.</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> 15 Oct, 2026</span>
+                                    <span>Plantel Chihuahua</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop" alt="Firma Convenio" class="h-48 w-full object-cover">
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-urn-gold uppercase">Vinculación</span>
+                                    <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Firma de convenio para prácticas con empresas globales</h3>
+                                    <p class="text-slate-600 text-sm line-clamp-3">Nuestros estudiantes podrán acceder a programas de mentoría directa con líderes del sector corporativo.</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> 28 Sep, 2026</span>
+                                    <span>Plantel Juárez</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" alt="Diplomado URN" class="h-48 w-full object-cover">
+                            <div class="p-6 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-urn-gold uppercase">Educación Continua</span>
+                                    <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Apertura de Nuevos Diplomados Ejecutivo-Presenciales</h3>
+                                    <p class="text-slate-600 text-sm line-clamp-3">Inicia tu actualización profesional con módulos sabatinos en Inteligencia Estratégica y Derecho Mercantil.</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> 05 Sep, 2026</span>
+                                    <span>Todos los Planteles</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANNER CALL TO ACTION -->
+            <div class="bg-gradient-to-r from-urn-guinda to-urn-navy text-white py-16 px-4 text-center">
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">¿Listo para formar parte de la comunidad URN?</h2>
+                    <p class="text-slate-200 max-w-xl mx-auto">Aprovecha nuestras becas institucionales e inicia tu trámite de preinscripción en línea de forma rápida y sencilla.</p>
+                    <div class="pt-2">
+                        <button onclick="navigateToSection('admisiones')" class="bg-urn-gold hover:bg-yellow-500 text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-xl transition transform hover:scale-105">
+                            Calcular mi Beca e Inscribirme
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN 2: OFERTA ACADÉMICA ================= -->
+        <section id="sec-oferta" class="spa-section">
+            
+            <!-- HEADER OFERTA -->
+            <div class="bg-urn-navy text-white py-16 px-4">
+                <div class="max-w-7xl mx-auto text-center space-y-4">
+                    <span class="bg-urn-gold/20 text-urn-gold font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-urn-gold/30">Nuestros Programas</span>
+                    <h1 class="text-4xl sm:text-5xl font-black">Oferta Académica URN</h1>
+                    <p class="text-slate-300 max-w-2xl mx-auto text-base">Explora nuestros planes de estudio diseñados con pertinencia laboral para responder a los retos del mercado actual.</p>
+                </div>
+            </div>
+
+            <!-- FILTROS Y BUSCADOR -->
+            <div class="py-12 bg-slate-100 min-h-screen">
+                <div class="max-w-7xl mx-auto px-4">
+                    
+                    <!-- CONTROL BAR -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+                        
+                        <!-- FILTROS POR NIVEL -->
+                        <div class="flex flex-wrap gap-2 w-full md:w-auto" id="academic-filters">
+                            <button onclick="filterOferta('todos')" class="filter-btn active bg-urn-guinda text-white px-4 py-2 rounded-xl text-sm font-semibold transition">Todos</button>
+                            <button onclick="filterOferta('licenciatura')" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-semibold transition">Licenciaturas</button>
+                            <button onclick="filterOferta('maestria')" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-semibold transition">Maestrías</button>
+                            <button onclick="filterOferta('doctorado')" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-semibold transition">Doctorados</button>
+                            <button onclick="filterOferta('diplomado')" class="filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-semibold transition">Diplomados</button>
+                        </div>
+
+                        <!-- BUSCADOR EN TIEMPO REAL -->
+                        <div class="relative w-full md:w-72">
+                            <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-400"></i>
+                            <input type="text" id="oferta-search" oninput="searchOferta()" placeholder="Buscar programa..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm">
+                        </div>
+                    </div>
+
+                    <!-- TARJETAS DE PROGRAMAS (GRID) -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="program-cards-container">
+                        
+                        <!-- Licenciatura en Derecho -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="licenciatura" data-title="licenciatura en derecho">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-rose-50 text-urn-guinda text-xs font-extrabold px-3 py-1 rounded-full uppercase">Licenciatura</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 9 Semestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Licenciatura en Derecho</h3>
+                                <p class="text-slate-600 text-sm mb-4">Formación integral en legislación, litigio estratégico, derecho corporativo y ciencias penales.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Presencial / Sabatina</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Planteles: Chihuahua, Juárez, Parral, Delicias</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Licenciatura en Derecho', '9 Semestres', 'Presencial y Sabatina', 'Chihuahua, Juárez, Parral, Delicias', 'Este programa abarca Derecho Constitucional, Civil, Penal, Laboral, Corporativo y Medios Alternativos de Solución de Controversias. Contamos con salas de juicios orales simulados.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition" title="Inscribirse">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Licenciatura en Administración de Empresas -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="licenciatura" data-title="administracion de empresas">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-rose-50 text-urn-guinda text-xs font-extrabold px-3 py-1 rounded-full uppercase">Licenciatura</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 8 Semestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Administración de Empresas</h3>
+                                <p class="text-slate-600 text-sm mb-4">Desarrolla habilidades directivas, visión financiera, emprendimiento y gestión de capital humano.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Presencial / En Línea</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Planteles: Todos los planteles</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Administración de Empresas', '8 Semestres', 'Presencial / Virtual', 'Todos los Planteles', 'Plan enfocado en finanzas corporativas, marketing digital, estrategia organizacional, innovación de negocios y desarrollo sustentable.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition" title="Inscribirse">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Ingeniería Industrial y en Sistemas -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="licenciatura" data-title="ingenieria industrial y en sistemas">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-rose-50 text-urn-guinda text-xs font-extrabold px-3 py-1 rounded-full uppercase">Ingeniería</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 9 Semestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Ingeniería Industrial y en Sistemas</h3>
+                                <p class="text-slate-600 text-sm mb-4">Optimización de procesos de manufactura, logística de cadena de suministro y gestión de calidad.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Presencial</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Planteles: Chihuahua, Ciudad Juárez</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Ingeniería Industrial y en Sistemas', '9 Semestres', 'Presencial', 'Chihuahua, Juárez', 'Especialización en Six Sigma, Manufactura Esbelta, Automatización, Logística Internacional y Seguridad Industrial.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Licenciatura en Comercio Internacional -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="licenciatura" data-title="comercio internacional">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-rose-50 text-urn-guinda text-xs font-extrabold px-3 py-1 rounded-full uppercase">Licenciatura</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 8 Semestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Comercio Internacional</h3>
+                                <p class="text-slate-600 text-sm mb-4">Dominio de aduanas, regulación de exportaciones/importaciones y tratados trasnacionales.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Presencial / Híbrida</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Planteles: Juárez, Chihuahua</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Comercio Internacional', '8 Semestres', 'Presencial / Híbrida', 'Juárez, Chihuahua', 'Materias en Legislación Aduanera, Logística Global, Negociación Internacional y Tratado T-MEC.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Maestría en Docencia -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="maestria" data-title="maestria en docencia">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-amber-50 text-urn-gold text-xs font-extrabold px-3 py-1 rounded-full uppercase">Maestría</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 4 Cuatrimestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Maestría en Docencia</h3>
+                                <p class="text-slate-600 text-sm mb-4">Estrategias pedagógicas de vanguardia, tecnología educativa y diseño curricular superior.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Ejecutiva (Sabatina) / En Línea</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Planteles: Chihuahua, Juárez, Cuauhtémoc</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Maestría en Docencia', '4 Cuatrimestres', 'Sabatina / En Línea', 'Chihuahua, Juárez, Cuauhtémoc', 'Dirigida a educadores que buscan innovar en metodologías de enseñanza, evaluación del aprendizaje e investigación educativa.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Doctorado en Educación -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="doctorado" data-title="doctorado en educacion">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-purple-50 text-purple-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Doctorado</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 6 Cuatrimestres</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Doctorado en Educación</h3>
+                                <p class="text-slate-600 text-sm mb-4">Investigación de alto impacto, políticas públicas educativas y liderazgo institucional.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: Semipresencial / Módulos</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Campus Central Chihuahua</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Doctorado en Educación', '6 Cuatrimestres', 'Semipresencial', 'Chihuahua', 'Grado máximo de especialización en gestión de sistemas educativos, epistemología pedagógica y desarrollo de tesis doctoral.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Diplomado en Liderazgo Corporativo -->
+                        <div class="program-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm card-hover flex flex-col" data-category="diplomado" data-title="diplomado en liderazgo corporativo">
+                            <div class="p-6 flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <span class="bg-emerald-50 text-emerald-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Diplomado</span>
+                                    <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-clock mr-1"></i> 120 Horas</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Liderazgo y Gestión de Equipos</h3>
+                                <p class="text-slate-600 text-sm mb-4">Actualización ejecutiva sobre coaching, negociación efectiva y gestión del cambio.</p>
+                                <div class="space-y-1.5 text-xs text-slate-500 border-t border-slate-100 pt-3">
+                                    <p><i class="fa-solid fa-laptop text-urn-gold w-5"></i> Modalidad: 100% En Línea</p>
+                                    <p><i class="fa-solid fa-location-dot text-urn-gold w-5"></i> Cobertura Nacional</p>
+                                </div>
+                            </div>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="openProgramModal('Diplomado en Liderazgo Corporativo', '120 Horas', 'Virtual', 'Nacional', 'Programa intensivo con valor curricular enfocado en toma de decisiones estratégicas, gestión de crisis e inteligencia emocional.')" class="text-urn-guinda font-bold text-sm hover:underline">Ver Plan de Estudios</button>
+                                <button onclick="navigateToSection('admisiones');" class="bg-urn-guinda text-white p-2.5 rounded-xl hover:bg-urn-guindaDark transition">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN 3: ADMISIONES & CALCULADORA ================= -->
+        <section id="sec-admisiones" class="spa-section">
+            
+            <!-- ADMISIONES BANNER -->
+            <div class="bg-urn-navy text-white py-16 px-4">
+                <div class="max-w-7xl mx-auto text-center space-y-4">
+                    <span class="bg-urn-gold/20 text-urn-gold font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-urn-gold/30">Tu Futuro Empieza Aquí</span>
+                    <h1 class="text-4xl sm:text-5xl font-black">Proceso de Admisión y Becas</h1>
+                    <p class="text-slate-300 max-w-2xl mx-auto">Te acompañamos paso a paso para integrarte a la familia URN con beneficios económicos transparentes.</p>
+                </div>
+            </div>
+
+            <!-- PROCESO PASO A PASO -->
+            <div class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Inscríbete en 4 Sencillos Pasos</h2>
+                    </div>
+
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative">
+                            <div class="w-12 h-12 bg-urn-guinda text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto">1</div>
+                            <h3 class="font-bold text-slate-900">Pre-registro</h3>
+                            <p class="text-xs text-slate-600">Completa el formulario en línea o visita tu campus preferido.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative">
+                            <div class="w-12 h-12 bg-urn-guinda text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto">2</div>
+                            <h3 class="font-bold text-slate-900">Asesoría de Beca</h3>
+                            <p class="text-xs text-slate-600">Calcula tu porcentaje de beca según tu promedio académico.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative">
+                            <div class="w-12 h-12 bg-urn-guinda text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto">3</div>
+                            <h3 class="font-bold text-slate-900">Entrega de Papeles</h3>
+                            <p class="text-xs text-slate-600">Sube o entrega tu certificado de preparatoria/licenciatura y acta de nacimiento.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative">
+                            <div class="w-12 h-12 bg-urn-gold text-slate-950 rounded-full flex items-center justify-center text-xl font-bold mx-auto">4</div>
+                            <h3 class="font-bold text-slate-900">¡Inicia Clases!</h3>
+                            <p class="text-xs text-slate-600">Recibe tu horario y bienvenido a la comunidad universitaria URN.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULADOR INTERACTIVO DE BECAS -->
+            <div class="py-16 bg-slate-100">
+                <div class="max-w-5xl mx-auto px-4">
+                    <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                        <div class="bg-urn-guinda text-white p-8 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold">Calculadora de Beca Institucional URN</h3>
+                                <p class="text-rose-100 text-sm mt-1">Descubre al instante el porcentaje de beca al que eres acreedor.</p>
+                            </div>
+                            <span class="bg-urn-gold text-slate-950 font-black px-4 py-2 rounded-xl text-sm whitespace-nowrap">
+                                <i class="fa-solid fa-percent mr-1"></i> Beneficio 2026
+                            </span>
+                        </div>
+
+                        <div class="p-8 grid md:grid-cols-12 gap-8 items-center">
+                            
+                            <!-- INPUTS CALCULADORA -->
+                            <div class="md:col-span-7 space-y-6">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-sm font-bold text-slate-700">Tu Promedio Académico Anterior:</label>
+                                        <span id="promedio-val" class="text-lg font-black text-urn-guinda">8.5</span>
+                                    </div>
+                                    <input type="range" id="promedio-range" min="7.0" max="10.0" step="0.1" value="8.5" oninput="calculateScholarship()" class="w-full accent-urn-guinda h-2 bg-slate-200 rounded-lg cursor-pointer">
+                                    <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>7.0</span>
+                                        <span>8.0</span>
+                                        <span>9.0</span>
+                                        <span>10.0</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Nivel de Estudio Deseado:</label>
+                                    <select id="calc-nivel" onchange="calculateScholarship()" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-urn-guinda focus:outline-none">
+                                        <option value="lic">Licenciatura / Ingeniería</option>
+                                        <option value="pos">Maestría / Doctorado</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Modalidad Preferida:</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <button type="button" onclick="setModalidadCalc('presencial')" id="btn-mod-presencial" class="mod-calc-btn active bg-rose-50 border-2 border-urn-guinda text-urn-guinda font-bold py-2.5 px-4 rounded-xl text-xs text-center">
+                                            Presencial / Ejecutiva
+                                        </button>
+                                        <button type="button" onclick="setModalidadCalc('linea')" id="btn-mod-linea" class="mod-calc-btn bg-slate-50 border-2 border-transparent text-slate-600 font-bold py-2.5 px-4 rounded-xl text-xs text-center hover:bg-slate-100">
+                                            100% En Línea
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RESULTADO CALCULADORA -->
+                            <div class="md:col-span-5 bg-slate-900 text-white rounded-2xl p-6 text-center space-y-4 relative overflow-hidden border border-slate-800">
+                                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-urn-guinda/20 rounded-full blur-2xl"></div>
+                                <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Tu Beca Estimada URN</span>
+                                <div class="text-5xl font-black text-urn-gold my-2" id="beca-result">35%</div>
+                                <p class="text-xs text-slate-300 leading-relaxed" id="beca-desc">
+                                    ¡Felicidades! Manteniendo este promedio obtienes un descuento preferencial en tus colegiaturas.
+                                </p>
+                                <div class="pt-2">
+                                    <button onclick="applyScholarshipToForm()" class="w-full bg-urn-guinda hover:bg-urn-guindaLight text-white font-bold py-3 rounded-xl shadow-lg transition text-xs">
+                                        Reclamar esta Beca Ahora
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULARIO PRE-REGISTRO COMPLETO -->
+            <div id="pre-registro-form-section" class="py-16 bg-white">
+                <div class="max-w-3xl mx-auto px-4">
+                    <div class="text-center mb-8">
+                        <span class="text-urn-guinda font-bold text-xs uppercase tracking-wider">Asegura tu Lugar</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Formulario de Preinscripción Directa</h2>
+                        <p class="text-slate-500 text-sm mt-1">Sin compromiso. Un asesor académico se pondrá en contacto en menos de 24 horas.</p>
+                    </div>
+
+                    <form onsubmit="handlePreRegisterSubmit(event)" class="bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre(s) *</label>
+                                <input type="text" id="pre-nombre" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white" placeholder="Ej. Roberto">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Apellidos *</label>
+                                <input type="text" id="pre-apellido" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white" placeholder="Ej. Hernández Pérez">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Correo Electrónico *</label>
+                                <input type="email" id="pre-email" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Teléfono WhatsApp *</label>
+                                <input type="tel" id="pre-phone" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white" placeholder="Ej. 6141234567">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Plantel de Interés *</label>
+                                <select id="pre-campus" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white">
+                                    <option value="">Selecciona Campus</option>
+                                    <option value="Chihuahua">Chihuahua</option>
+                                    <option value="Ciudad Juárez">Ciudad Juárez</option>
+                                    <option value="Parral">Parral</option>
+                                    <option value="Delicias">Delicias</option>
+                                    <option value="Cuauhtémoc">Cuauhtémoc</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Carrera / Programa *</label>
+                                <select id="pre-carrera" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white">
+                                    <option value="">Selecciona Programa</option>
+                                    <option value="Derecho">Lic. en Derecho</option>
+                                    <option value="Administración">Lic. en Administración de Empresas</option>
+                                    <option value="Ingeniería Industrial">Ingeniería Industrial y en Sistemas</option>
+                                    <option value="Comercio Internacional">Lic. en Comercio Internacional</option>
+                                    <option value="Maestría Docencia">Maestría en Docencia</option>
+                                    <option value="Doctorado Educación">Doctorado en Educación</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bg-rose-50 p-4 rounded-xl border border-rose-200 text-xs text-urn-guinda flex items-center gap-3">
+                            <i class="fa-solid fa-award text-xl text-urn-gold"></i>
+                            <div>
+                                <span class="font-bold">Beca Seleccionada: </span>
+                                <span id="form-applied-scholarship">35% Estimada en la Calculadora</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-urn-guinda hover:bg-urn-guindaDark text-white font-black py-4 rounded-xl shadow-lg transition text-base">
+                            Enviar Solicitud de Preinscripción
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN 4: NOSOTROS & PLANTELES ================= -->
+        <section id="sec-nosotros" class="spa-section">
+            
+            <!-- NOSOTROS BANNER -->
+            <div class="bg-urn-navy text-white py-16 px-4">
+                <div class="max-w-7xl mx-auto text-center space-y-4">
+                    <span class="bg-urn-gold/20 text-urn-gold font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-urn-gold/30">Nuestra Identidad</span>
+                    <h1 class="text-4xl sm:text-5xl font-black">Universidad Regional del Norte</h1>
+                    <p class="text-slate-300 max-w-2xl mx-auto">Más de tres décadas formando profesionales con sentido humano, ético y de liderazgo en el Estado de Chihuahua.</p>
+                </div>
+            </div>
+
+            <!-- HISTORIA, MISIÓN, VISIÓN -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="text-urn-guinda font-bold text-sm uppercase tracking-wider">Tradición e Innovación</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900">Institución Comprometida con el Desarrollo del Norte</h2>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Fundada con la misión de impulsar la calidad académica en la región norteña de México, la URN ha consolidado una red educativa sólida con campus estratégicos que acercan la formación profesional a miles de familias.
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-rose-50 text-urn-guinda rounded-xl flex-shrink-0 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-compass"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Misión</h4>
+                                    <p class="text-slate-600 text-xs mt-0.5">Proporcionar educación superior integral que combine el pensamiento crítico, la ética profesional y la adaptabilidad ante el entorno global.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-amber-50 text-urn-gold rounded-xl flex-shrink-0 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-eye"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Visión</h4>
+                                    <p class="text-slate-600 text-xs mt-0.5">Ser la universidad privada referente por la excelencia de sus egresados, la calidad docente y el impacto social positivo en Chihuahua y la región fronteriza.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1000&auto=format&fit=crop" alt="Instalaciones URN" class="rounded-3xl shadow-2xl border-4 border-white">
+                        <div class="absolute -bottom-6 -left-6 bg-urn-guinda text-white p-6 rounded-2xl shadow-xl hidden sm:block">
+                            <p class="text-3xl font-black text-urn-gold">30+</p>
+                            <p class="text-xs font-medium">Años transformando vidas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELECTOR INTERACTIVO DE PLANTELES -->
+            <div class="py-20 bg-slate-100">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="text-urn-guinda font-bold text-xs uppercase tracking-wider">Cerca de Ti</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Nuestros Planteles y Campus</h2>
+                        <p class="text-slate-600 text-sm mt-2">Selecciona un plantel para conocer su ubicación, teléfono y oferta disponible.</p>
+                    </div>
+
+                    <!-- TABS PLANTELES -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-8" id="campus-tabs">
+                        <button onclick="selectCampus('chihuahua')" id="tab-chihuahua" class="campus-tab active bg-urn-guinda text-white px-6 py-3 rounded-xl font-bold text-sm shadow-sm transition">Chihuahua Central</button>
+                        <button onclick="selectCampus('juarez')" id="tab-juarez" class="campus-tab bg-white text-slate-700 hover:bg-slate-200 px-6 py-3 rounded-xl font-bold text-sm transition">Ciudad Juárez</button>
+                        <button onclick="selectCampus('parral')" id="tab-parral" class="campus-tab bg-white text-slate-700 hover:bg-slate-200 px-6 py-3 rounded-xl font-bold text-sm transition">Parral</button>
+                        <button onclick="selectCampus('delicias')" id="tab-delicias" class="campus-tab bg-white text-slate-700 hover:bg-slate-200 px-6 py-3 rounded-xl font-bold text-sm transition">Delicias</button>
+                        <button onclick="selectCampus('cuauhtemoc')" id="tab-cuauhtemoc" class="campus-tab bg-white text-slate-700 hover:bg-slate-200 px-6 py-3 rounded-xl font-bold text-sm transition">Cuauhtémoc</button>
+                    </div>
+
+                    <!-- DISPLAY CAMPUS INFO CARD -->
+                    <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-xl max-w-4xl mx-auto" id="campus-info-box">
+                        <!-- Dynamic Content Loaded via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN 5: CONTACTO & FAQ ================= -->
+        <section id="sec-contacto" class="spa-section">
+            
+            <!-- CONTACTO BANNER -->
+            <div class="bg-urn-navy text-white py-16 px-4">
+                <div class="max-w-7xl mx-auto text-center space-y-4">
+                    <span class="bg-urn-gold/20 text-urn-gold font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-urn-gold/30">Estamos para Servirte</span>
+                    <h1 class="text-4xl sm:text-5xl font-black">Contacto y Atención Directa</h1>
+                    <p class="text-slate-300 max-w-2xl mx-auto">Resuelve tus dudas sobre inscripciones, revalidaciones, trámites de titulación o servicios estudiantiles.</p>
+                </div>
+            </div>
+
+            <!-- FORMULARIO & DETALLES CONTACTO -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12">
+                    
+                    <!-- INFO CONTACTO -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Canales Atencion URN</h3>
+                            <p class="text-slate-600 text-sm">Visítanos en nuestras oficinas centrales o comunícate vía telefónica.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-rose-50 text-urn-guinda rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Oficinas Centrales</h4>
+                                    <p class="text-slate-600 text-xs mt-1">Allende y Calle 10a No. 1000, Col. Centro, Chihuahua, Chih.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-rose-50 text-urn-guinda rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Línea Telefónica Directa</h4>
+                                    <p class="text-slate-600 text-xs mt-1">(614) 410-0100 | Toll Free: 800-876-3382</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-rose-50 text-urn-guinda rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-sm">Atención por Correo</h4>
+                                    <p class="text-slate-600 text-xs mt-1">informes@urn.edu.mx / admisiones@urn.edu.mx</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HORARIOS DE ATENCION -->
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-2 text-xs">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i class="fa-regular fa-clock text-urn-gold"></i> Horarios de Ventanilla
+                            </h4>
+                            <p class="text-slate-600">Lunes a Viernes: 8:00 AM - 7:00 PM</p>
+                            <p class="text-slate-600">Sábados: 9:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- FORMULARIO DE CONTACTO -->
+                    <div class="lg:col-span-7 bg-slate-50 p-8 rounded-3xl border border-slate-200">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Envíanos un Mensaje</h3>
+                        <p class="text-slate-600 text-sm mb-6">Proporciona tus datos y consulta para ser atendido a la brevedad.</p>
+
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre Completo *</label>
+                                    <input type="text" required placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Correo Electrónico *</label>
+                                    <input type="email" required placeholder="tuemail@ejemplo.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Asunto</label>
+                                <select required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white text-slate-700">
+                                    <option value="">Selecciona el tema</option>
+                                    <option value="admisiones">Informes sobre Admisiones</option>
+                                    <option value="revalidaciones">Revalidación de Estudios / Traspaso</option>
+                                    <option value="titulacion">Trámites de Titulación</option>
+                                    <option value="bolsa">Convenios o Bolsa de Trabajo</option>
+                                    <option value="otro">Otro Comentario</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mensaje *</label>
+                                <textarea required rows="4" placeholder="Escribe tu mensaje o duda aquí..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-urn-guinda focus:outline-none text-sm bg-white"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-urn-guinda hover:bg-urn-guindaDark text-white font-bold py-3.5 rounded-xl shadow-md transition">
+                                Enviar Mensaje Directo
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PREGUNTAS FRECUENTES (FAQ ACCORDION) -->
+            <div class="py-20 bg-slate-100 border-t border-slate-200">
+                <div class="max-w-4xl mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <span class="text-urn-guinda font-bold text-xs uppercase tracking-wider">Resuelve tus Dudas</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Preguntas Frecuentes (FAQ)</h2>
+                    </div>
+
+                    <div class="space-y-4" id="faq-accordion">
+                        
+                        <!-- FAQ 1 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                            <button onclick="toggleFaq(1)" class="w-full px-6 py-4 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                                <span>¿Los programas de la URN cuentan con reconocimiento RVOE oficial?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition transform" id="faq-icon-1"></i>
+                            </button>
+                            <div class="px-6 pb-4 text-slate-600 text-sm hidden" id="faq-ans-1">
+                                Sí, el 100% de nuestras licenciaturas, maestrías y doctorados cuentan con Reconocimiento de Validez Oficial de Estudios (RVOE) otorgado por la SEP y las autoridades educativas estatales.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 2 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                            <button onclick="toggleFaq(2)" class="w-full px-6 py-4 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                                <span>¿Puedo revalidar materias de otra universidad?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition transform" id="faq-icon-2"></i>
+                            </button>
+                            <div class="px-6 pb-4 text-slate-600 text-sm hidden" id="faq-ans-2">
+                                Sí. Contamos con un dictamen de equivalencia ágil. Presenta tu kardex o certificado parcial de estudios anteriores en el departamento de admisiones de tu plantel.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 3 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                            <button onclick="toggleFaq(3)" class="w-full px-6 py-4 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                                <span>¿Cuáles son las opciones de titulación?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition transform" id="faq-icon-3"></i>
+                            </button>
+                            <div class="px-6 pb-4 text-slate-600 text-sm hidden" id="faq-ans-3">
+                                Ofrecemos múltiples modalidades como Titulación Automática por Promedio Excelencia, Tesis Profesional, Examen CENEVAL o Titulación por Estudios de Posgrado.
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                            <button onclick="toggleFaq(4)" class="w-full px-6 py-4 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                                <span>¿Existen horarios para personas que trabajan?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition transform" id="faq-icon-4"></i>
+                            </button>
+                            <div class="px-6 pb-4 text-slate-600 text-sm hidden" id="faq-ans-4">
+                                Por supuesto. Diseñamos modalidades sabatinas ejecutivas y clases presenciales nocturnas, además de plataformas en línea flexibles 24/7.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-urn-navy text-slate-300 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            
+            <!-- COL 1: URN BRAND -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1">
+                        <svg viewBox="0 0 100 120" class="w-full h-full text-urn-guinda fill-current">
+                            <path d="M50 0 L95 20 V60 C95 90 50 115 50 115 C50 115 5 90 5 60 V20 Z" fill="#800020"/>
+                            <path d="M50 10 L85 26 V58 C85 83 50 103 50 103 C50 103 15 83 15 58 V26 Z" fill="#ffffff"/>
+                            <text x="50" y="55" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#800020" text-anchor="middle">URN</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-lg font-black text-white block leading-none">URN</span>
+                        <span class="text-[9px] font-semibold text-urn-gold uppercase tracking-wider">Universidad Regional del Norte</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Institución de educación superior dedicada a la formación integral de profesionales líderes con impacto en Chihuahua y el norte del país.
+                </p>
+                <div class="flex gap-3 text-lg pt-2">
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 bg-slate-800 hover:bg-urn-guinda rounded-full flex items-center justify-center text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 bg-slate-800 hover:bg-urn-guinda rounded-full flex items-center justify-center text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank" class="w-9 h-9 bg-slate-800 hover:bg-urn-guinda rounded-full flex items-center justify-center text-white transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- COL 2: NAVEGACION RAPIDA -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-base mb-4 border-b border-slate-800 pb-2">Secciones Principales</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><button onclick="navigateToSection('inicio')" class="hover:text-urn-gold transition">Inicio</button></li>
+                    <li><button onclick="navigateToSection('oferta')" class="hover:text-urn-gold transition">Oferta Académica</button></li>
+                    <li><button onclick="navigateToSection('admisiones')" class="hover:text-urn-gold transition">Admisiones & Becas</button></li>
+                    <li><button onclick="navigateToSection('nosotros')" class="hover:text-urn-gold transition">Planteles & Historia</button></li>
+                    <li><button onclick="navigateToSection('contacto')" class="hover:text-urn-gold transition">Contacto y FAQ</button></li>
+                </ul>
+            </div>
+
+            <!-- COL 3: PLANTELES -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-base mb-4 border-b border-slate-800 pb-2">Planteles URN</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li><i class="fa-solid fa-angle-right text-urn-gold mr-1"></i> Campus Chihuahua (Central)</li>
+                    <li><i class="fa-solid fa-angle-right text-urn-gold mr-1"></i> Campus Ciudad Juárez</li>
+                    <li><i class="fa-solid fa-angle-right text-urn-gold mr-1"></i> Campus Hidalgo del Parral</li>
+                    <li><i class="fa-solid fa-angle-right text-urn-gold mr-1"></i> Campus Delicias</li>
+                    <li><i class="fa-solid fa-angle-right text-urn-gold mr-1"></i> Campus Cuauhtémoc</li>
+                </ul>
+            </div>
+
+            <!-- COL 4: LEGAL & AVISO PRIVACIDAD -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-base mb-4 border-b border-slate-800 pb-2">Información Legal</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Todos los derechos reservados. Consulta nuestro aviso de privacidad y términos institucionales.
+                </p>
+                <div class="pt-2">
+                    <button onclick="openPrivacyModal()" class="text-xs text-urn-gold hover:underline">Aviso de Privacidad Institucional</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+            &copy; 2026 Universidad Regional del Norte (URN). Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- MODAL PLAN DE ESTUDIOS -->
+    <div id="program-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 relative animate-fade-in">
+            <button onclick="closeProgramModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span id="modal-category" class="bg-rose-50 text-urn-guinda text-xs font-bold px-3 py-1 rounded-full uppercase">Plan de Estudios</span>
+            <h3 id="modal-title" class="text-2xl font-bold text-slate-900">Nombre del Programa</h3>
+            
+            <div class="space-y-2 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <p><strong>Duración:</strong> <span id="modal-duration">--</span></p>
+                <p><strong>Modalidad:</strong> <span id="modal-modality">--</span></p>
+                <p><strong>Sedes:</strong> <span id="modal-campuses">--</span></p>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-bold text-slate-800 uppercase mb-1">Resumen del Plan Educativo</h4>
+                <p id="modal-desc" class="text-slate-600 text-sm leading-relaxed">--</p>
+            </div>
+
+            <div class="pt-4 flex gap-3">
+                <button onclick="closeProgramModal(); navigateToSection('admisiones');" class="w-full bg-urn-guinda hover:bg-urn-guindaDark text-white font-bold py-3 rounded-xl transition text-sm">
+                    Preinscribirme a este Programa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AVISO DE PRIVACIDAD -->
+    <div id="privacy-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 relative max-h-[80vh] overflow-y-auto">
+            <button onclick="closePrivacyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-slate-900">Aviso de Privacidad</h3>
+            <div class="text-xs text-slate-600 space-y-3 leading-relaxed">
+                <p>En la Universidad Regional del Norte (URN), la confidencialidad y protección de sus datos personales es una prioridad. Los datos recabados a través de nuestros formularios web serán utilizados exclusivamente para fines de orientación académica, proceso de admisión, evaluación de becas y comunicación de oferta universitaria.</p>
+                <p>Sus datos no serán compartidos ni vendidos a terceros ajenos a la estructura institucional de la URN.</p>
+            </div>
+            <button onclick="closePrivacyModal()" class="bg-slate-800 text-white font-bold px-6 py-2 rounded-xl text-xs">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- CUSTOM TOAST NOTIFICATION -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 max-w-md border border-slate-700">
+        <div id="toast-icon-box" class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <h5 id="toast-title" class="font-bold text-sm">¡Operación Exitosa!</h5>
+            <p id="toast-msg" class="text-xs text-slate-300">Mensaje enviado correctamente.</p>
+        </div>
+    </div>
+
+    <script>
+        /* ================= DATOS DE PLANTELES ================= */
+        const campusesData = {
+            chihuahua: {
+                title: "Campus Chihuahua (Matriz)",
+                address: "Allende y Calle 10a No. 1000, Col. Centro, C.P. 31000, Chihuahua, Chih.",
+                phone: "(614) 410-0100",
+                email: "chihuahua@urn.edu.mx",
+                director: "Lic. Roberto Mendoza",
+                oferta: "Licenciaturas, Ingenierías, Maestrías, Doctorado en Educación",
+                image: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=800&auto=format&fit=crop"
+            },
+            juarez: {
+                title: "Campus Ciudad Juárez",
+                address: "Av. Paseo Triunfo de la República No. 3450, Ciudad Juárez, Chih.",
+                phone: "(656) 616-8090",
+                email: "juarez@urn.edu.mx",
+                director: "Dra. Patricia Morales",
+                oferta: "Derecho, Comercio Internacional, Administración, Maestrías Ejecutivas",
+                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop"
+            },
+            parral: {
+                title: "Campus Hidalgo del Parral",
+                address: "Calle Ojinaga y Blvd. Ortiz Mena No. 45, Parral, Chih.",
+                phone: "(627) 522-1200",
+                email: "parral@urn.edu.mx",
+                director: "Mtro. Carlos Sandoval",
+                oferta: "Licenciatura en Derecho, Administración, Diplomados de Actualización",
+                image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+            },
+            delicias: {
+                title: "Campus Delicias",
+                address: "Av. Agricultura Norte No. 200, Delicias, Chih.",
+                phone: "(639) 472-5500",
+                email: "delicias@urn.edu.mx",
+                director: "Ing. Fernando Castro",
+                oferta: "Administración de Empresas, Ingeniería Industrial, Diplomados",
+                image: "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?q=80&w=800&auto=format&fit=crop"
+            },
+            cuauhtemoc: {
+                title: "Campus Cuauhtémoc",
+                address: "Av. Allende No. 800, Cuauhtémoc, Chih.",
+                phone: "(625) 581-3000",
+                email: "cuauhtemoc@urn.edu.mx",
+                director: "Lic. Laura Trevizo",
+                oferta: "Derecho, Maestría en Docencia, Programas Ejecutivos",
+                image: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=800&auto=format&fit=crop"
+            }
+        };
+
+        /* ================= SPA NAVIGATION ENGINE ================= */
+        function navigateToSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.spa-section');
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(`sec-${sectionId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update active state in navbar
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active-link'));
+
+            const activeBtn = document.getElementById(`nav-${sectionId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-link');
+            }
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+
+            // Smooth scroll to top of viewport
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars text-2xl";
+            } else {
+                icon.className = "fa-solid fa-xmark text-2xl";
+            }
+        }
+
+        /* ================= OFERTA ACADEMICA FILTERS ================= */
+        function filterOferta(category) {
+            const filterBtns = document.querySelectorAll('#academic-filters .filter-btn');
+            filterBtns.forEach(btn => {
+                btn.className = "filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-semibold transition";
+            });
+
+            event.target.className = "filter-btn active bg-urn-guinda text-white px-4 py-2 rounded-xl text-sm font-semibold transition";
+
+            const cards = document.querySelectorAll('.program-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'todos' || cardCat === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function searchOferta() {
+            const query = document.getElementById('oferta-search').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.program-card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* ================= MODAL PROGRAMA DE ESTUDIO ================= */
+        function openProgramModal(title, duration, modality, campuses, desc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-duration').innerText = duration;
+            document.getElementById('modal-modality').innerText = modality;
+            document.getElementById('modal-campuses').innerText = campuses;
+            document.getElementById('modal-desc').innerText = desc;
+
+            document.getElementById('program-modal').classList.remove('hidden');
+        }
+
+        function closeProgramModal() {
+            document.getElementById('program-modal').classList.add('hidden');
+        }
+
+        /* ================= CALCULADORA DE BECAS ================= */
+        let selectedModalidadCalc = 'presencial';
+
+        function setModalidadCalc(mod) {
+            selectedModalidadCalc = mod;
+            document.getElementById('btn-mod-presencial').className = mod === 'presencial' ? 
+                'mod-calc-btn active bg-rose-50 border-2 border-urn-guinda text-urn-guinda font-bold py-2.5 px-4 rounded-xl text-xs text-center' : 
+                'mod-calc-btn bg-slate-50 border-2 border-transparent text-slate-600 font-bold py-2.5 px-4 rounded-xl text-xs text-center hover:bg-slate-100';
+
+            document.getElementById('btn-mod-linea').className = mod === 'linea' ? 
+                'mod-calc-btn active bg-rose-50 border-2 border-urn-guinda text-urn-guinda font-bold py-2.5 px-4 rounded-xl text-xs text-center' : 
+                'mod-calc-btn bg-slate-50 border-2 border-transparent text-slate-600 font-bold py-2.5 px-4 rounded-xl text-xs text-center hover:bg-slate-100';
+
+            calculateScholarship();
+        }
+
+        function calculateScholarship() {
+            const promedio = parseFloat(document.getElementById('promedio-range').value);
+            document.getElementById('promedio-val').innerText = promedio.toFixed(1);
+
+            let pct = 15; // base percentage
+
+            if (promedio >= 9.5) {
+                pct = 50;
+            } else if (promedio >= 9.0) {
+                pct = 40;
+            } else if (promedio >= 8.5) {
+                pct = 30;
+            } else if (promedio >= 8.0) {
+                pct = 20;
+            }
+
+            if (selectedModalidadCalc === 'linea') {
+                pct += 5; // Bonus for online study
+            }
+
+            document.getElementById('beca-result').innerText = `${pct}%`;
+            document.getElementById('beca-desc').innerText = `En base a tu promedio de ${promedio.toFixed(1)}, aplicas para un ${pct}% de beca directa en tus colegiaturas.`;
+            document.getElementById('form-applied-scholarship').innerText = `${pct}% Beca Promedio Directa`;
+        }
+
+        function applyScholarshipToForm() {
+            const formSection = document.getElementById('pre-registro-form-section');
+            formSection.scrollIntoView({ behavior: 'smooth' });
+            showToast("Beca Aplicada", "El porcentaje calculado ha sido vinculado a tu pre-registro.", "success");
+        }
+
+        /* ================= SELECTOR DE PLANTELES ================= */
+        function selectCampus(key) {
+            const data = campusesData[key];
+            if (!data) return;
+
+            // Update tab styles
+            const tabs = document.querySelectorAll('.campus-tab');
+            tabs.forEach(t => {
+                t.className = "campus-tab bg-white text-slate-700 hover:bg-slate-200 px-6 py-3 rounded-xl font-bold text-sm transition";
+            });
+
+            const activeTab = document.getElementById(`tab-${key}`);
+            if (activeTab) {
+                activeTab.className = "campus-tab active bg-urn-guinda text-white px-6 py-3 rounded-xl font-bold text-sm shadow-sm transition";
+            }
+
+            // Render Campus Box
+            const box = document.getElementById('campus-info-box');
+            box.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in">
+                    <div>
+                        <span class="bg-amber-100 text-urn-gold font-bold text-xs px-3 py-1 rounded-full uppercase">Plantel Oficial URN</span>
+                        <h3 class="text-2xl font-black text-slate-900 mt-2 mb-4">${data.title}</h3>
+                        
+                        <div class="space-y-3 text-xs sm:text-sm text-slate-600">
+                            <p class="flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-urn-guinda mt-1"></i>
+                                <span>${data.address}</span>
+                            </p>
+                            <p class="flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-urn-guinda"></i>
+                                <span><strong>Teléfono:</strong> ${data.phone}</span>
+                            </p>
+                            <p class="flex items-center gap-2">
+                                <i class="fa-solid fa-envelope text-urn-guinda"></i>
+                                <span><strong>Correo:</strong> ${data.email}</span>
+                            </p>
+                            <p class="flex items-center gap-2">
+                                <i class="fa-solid fa-user-tie text-urn-guinda"></i>
+                                <span><strong>Dirección:</strong> ${data.director}</span>
+                            </p>
+                            <div class="pt-2">
+                                <p class="font-bold text-slate-800">Oferta Académica Principal:</p>
+                                <p class="text-xs text-slate-500">${data.oferta}</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-3">
+                            <a href="tel:${data.phone.replace(/[^0-9]/g, '')}" class="bg-urn-guinda hover:bg-urn-guindaDark text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2">
+                                <i class="fa-solid fa-phone"></i> Llamar
+                            </a>
+                            <button onclick="navigateToSection('admisiones');" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-5 py-2.5 rounded-xl text-xs font-bold transition">
+                                Ver Requisitos
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+                        <img src="${data.image}" alt="${data.title}" class="w-full h-64 object-cover">
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ================= ACCORDION FAQ ================= */
+        function toggleFaq(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        /* ================= MODAL DE PRIVACIDAD ================= */
+        function openPrivacyModal() {
+            document.getElementById('privacy-modal').classList.remove('hidden');
+        }
+
+        function closePrivacyModal() {
+            document.getElementById('privacy-modal').classList.add('hidden');
+        }
+
+        function openPreRegisterModal() {
+            const formSection = document.getElementById('pre-registro-form-section');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        /* ================= FORM HANDLERS & TOAST ================= */
+        function handleQuickFormSubmit(e) {
+            e.preventDefault();
+            showToast("¡Solicitud Recibida!", "Un asesor URN se pondrá en contacto contigo muy pronto.", "success");
+            e.target.reset();
+        }
+
+        function handlePreRegisterSubmit(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('pre-nombre').value;
+            showToast(`¡Preinscripción Exitosa, ${nombre}!`, "Hemos recibido tus datos correctamente para iniciar tu trámite.", "success");
+            e.target.reset();
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Mensaje Enviado", "Agradecemos tu mensaje. Responderemos a tu correo en breve.", "success");
+            e.target.reset();
+        }
+
+        function showToast(title, msg, type) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = msg;
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4500);
+        }
+
+        /* ================= INITIALIZATION ON WINDOW LOAD ================= */
+        window.onload = function() {
+            // Set default section
+            navigateToSection('inicio');
+            // Calculate scholarship default state
+            calculateScholarship();
+            // Load default campus info (Chihuahua)
+            selectCampus('chihuahua');
+        };
+    </script>
+</body>
+</html>
